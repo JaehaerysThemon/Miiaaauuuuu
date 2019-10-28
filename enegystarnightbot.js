@@ -1,15 +1,16 @@
 // ==UserScript==
 // @name         Energy Star Night Bot 2019
-// @namespace    http : //tampermonkey.net/
+// @namespace    http://tampermonkey.net/
 // @version      0.1
 // @description  automates the question from Energy game
-// @author       Jaehaery Themon  :  https : //github.com/JaehaerysThemon
-// @match        https : //game.energy.ch/
+// @author       Jaehaerys Themon
+// @match        https://game.energy.ch
 // @grant        none
 // ==/UserScript==
+
 const mainDiv = document.getElementsByClassName('main')[0];
 const questions = {
-    "In welcher Eventlocation findet die Energy Star Night statt?" : "Hallenstadion, Zürich",
+"In welcher Eventlocation findet die Energy Star Night statt?" : "Hallenstadion, Zürich",
     "Energy Star Night Tickets kann man ausschliesslich…" : "gewinnen",
     "An wie vielen Standorten bietet LIPO aktuell alles an, was es zum Wohnen braucht" : "22",
     "Welcher Act eröffnete die Energy Star Night 2018?" : "Stefanie Heinzmann",
@@ -43,30 +44,26 @@ const questions = {
 
 
 function makeAction() {
-    console.log('huso');
     if (mainDiv.getElementsByClassName('questions')!=null){
-        console.log('huso');
         answerQuestion();
         nextQuestion();
     }
 }
 
 function answerQuestion() {
-    let texts = document.getElementsByTagName("H3");
-    console.log(texts[1])
-    let curr = questions[document.getElementsByTagName("H3")];
+    console.log(mainDiv.getElementsByClassName('question-text')[0].innerHTML)
+    let curr = questions[mainDiv.getElementsByClassName('question-text')[0].innerHTML];
     console.log(curr);
     let answer = document.getElementById(curr);
-    answer.trigger('click');
+    answer.click();
 }
 
 function nextQuestion() {
-    document.getElementById('next-question').trigger('click')
+    document.getElementById('next-question').click()
     setTimeout(makeAction, 500)
 }
 
 (function() {
     'use strict';
-    console.log('hello');
     makeAction();
 })();
