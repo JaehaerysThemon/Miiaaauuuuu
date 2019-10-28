@@ -18,7 +18,7 @@ const questions = {
     "Welcher dieser Acts hatte einen Auftritt an der Energy Star Night 2017?" : "Mark Forster",
     "Wie heisst der Hund im aktuellen Werbespot?" : "Mex",
     "Wann findet die Energy Star Night 2019 statt?" : "22. November 2019",
-    "Wen küsste Energy Moderator Jontsch an der" : "Jastina Doreen, Ex-Miss Schweiz",
+    "Wen küsste Energy Moderator Jontsch an der letztjährigen Energy Star Night?" : "Jastina Doreen, Ex-Miss Schweiz",
     "Wie viele Energy Star Night Tickets werden verlost?" : "14'000",
     "Wann fand die Energy Star Night (ehemals Energy Stars For Free) zum ersten Mal statt?" : "2003",
     "Die Energy Star Night hiess ehemals..." : "Energy Stars For Free",
@@ -38,49 +38,57 @@ const questions = {
     "Welche Ausgabe der Energy Star Night wurde zuletzt auf Pro7 Schweiz übertragen?" : "Energy Star Night 2017",
     "Wo erfährst du immer die neusten Infos rund um die Energy Star Night?" : "im Radio, auf der Event-Website und über Social Media",
     "Die wievielte Energy Star Night Ausgabe findet dieses Jahr statt?" : "Die siebzehnte",
-    "In welcher Stadt eröffnete 1976 die erste LIPO Filiale der Schweiz?" : "Dietikon(Kanton Zürich)",
+    "In welcher Stadt eröffnete 1976 die erste LIPO Filiale der Schweiz?" : "Dietikon (Kanton Zürich)",
     "Wie lautet der offizielle Hashtag der Energy Star Night 2019?" : "#esn19",
     "In welchem Kanton gibt es KEINE LIPO Filiale?" : "Graubünden",
     "Was garantiert LIPO seinen Kunden?" : "Die tiefsten Preise der Schweiz",
     "Welche Farbe hat das LIPO Logo?" : "Orange",
     "Wie viele Energy Music Awards (in Zusammenarbeit mit dem Schweizerischen Roten Kreuz) wurden bisher verliehen?" : "3",
-    "Wann wurde Energy Stars For Free in Energy Star Night umbenannt?":"16 Oktober"
+    "Wann wurde Energy Stars For Free in Energy Star Night umbenannt?":"Oktober 2016",
+    "Der Energy Music Award wird jeweils in Zusammenarbeit mit ... verliehen?":"dem Schweizerischen Roten Kreuz",
+    "Was kann man bei LIPO kaufen?":"Möbel",
+    "Welcher Schweizer Act räumte den Energy Music Award 2018 ab?":"Nemo",
 };
 
 
 function makeAction() {
-    if (mainDiv.getElementsByClassName('questions')!=null){
+    if (mainDiv.getElementsByClassName('questions')[0]!=null){
         answerQuestion();
         nextQuestion();
-    } else if(mainDiv.getElementsByClassName('cross')!=null){
-        mainDiv.getElementsByClassName('btn')[0].click;
-        slot();
-        mainDiv.getElementsByClassName('lose')[1].click()
-    } else if(mainDiv.getElementsByClassName('lose')!=null){
+    } else if(mainDiv.getElementsByClassName('cross')[0]!=null){
+        mainDiv.getElementsByClassName('game-button-slot')[0].click();
+    } else if(mainDiv.getElementsByClassName('slot')[0]!=null){
+        if(document.getElementsByTagName('h1')[1].innerText=='Leider verloren'){
+            mainDiv.getElementsByClassName('btn')[1].click();
+        } else {
+            mainDiv.getElementsByClassName('circle')[10].firstChild.click();
+        }
+    } else if(mainDiv.getElementsByClassName('lose')[0]!=null){
         mainDiv.getElementsByClassName('btn')[1].click();
+    } else if(document.getElementById('verification')){
+        document.getElementsByClassName('game-button')[0].click();
     }
-    setTimeout(makeAction, 300)
 }
 
 function answerQuestion() {
-    console.log(mainDiv.getElementsByClassName('question-text')[0].innerHTML)
     let curr = questions[mainDiv.getElementsByClassName('question-text')[0].innerHTML];
-    console.log(curr);
     let answer = document.getElementById(curr);
     answer.click();
 }
 
 function nextQuestion() {
     document.getElementById('next-question').click()
-    setTimeout(makeAction, 500)
 }
 
-function slot(){
-    mainDiv.getElementsByClassName('circle')[7].firstChild.click();
-}
 
 (function() {
-    'use strict';
-    makeAction();
+    var script = document.createElement('script');
+    script.src = 'https://code.jquery.com/jquery-3.4.1.min.js';
+    script.type = 'text/javascript';
+    document.getElementsByTagName('head')[0].appendChild(script);
+    setInterval(()=>{
+        $(document).ready (function (){
+            makeAction();
+        });
+    },300);
 })();
-
