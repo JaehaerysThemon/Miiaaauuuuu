@@ -10,7 +10,7 @@
 
 const mainDiv = document.getElementsByClassName('main')[0];
 const questions = {
-"In welcher Eventlocation findet die Energy Star Night statt?" : "Hallenstadion, Zürich",
+    "In welcher Eventlocation findet die Energy Star Night statt?" : "Hallenstadion, Zürich",
     "Energy Star Night Tickets kann man ausschliesslich…" : "gewinnen",
     "An wie vielen Standorten bietet LIPO aktuell alles an, was es zum Wohnen braucht" : "22",
     "Welcher Act eröffnete die Energy Star Night 2018?" : "Stefanie Heinzmann",
@@ -37,9 +37,13 @@ const questions = {
     "Die Energy Star Night ist…" : "das grösste Indoor Musik-Event der Schweiz",
     "Welche Ausgabe der Energy Star Night wurde zuletzt auf Pro7 Schweiz übertragen?" : "Energy Star Night 2017",
     "Wo erfährst du immer die neusten Infos rund um die Energy Star Night?" : "im Radio, auf der Event-Website und über Social Media",
-    "Die wievielte Energy Star Night Ausgabe findet dieses Jahr statt?" : " Die siebzehnte",
+    "Die wievielte Energy Star Night Ausgabe findet dieses Jahr statt?" : "Die siebzehnte",
     "In welcher Stadt eröffnete 1976 die erste LIPO Filiale der Schweiz?" : "Dietikon(Kanton Zürich)",
     "Wie lautet der offizielle Hashtag der Energy Star Night 2019?" : "#esn19",
+    "In welchem Kanton gibt es KEINE LIPO Filiale?" : "Graubünden",
+    "Was garantiert LIPO seinen Kunden?" : "Die tiefsten Preise der Schweiz",
+    "Welche Farbe hat das LIPO Logo?" : "Orange",
+    "Wie viele Energy Music Awards (in Zusammenarbeit mit dem Schweizerischen Roten Kreuz) wurden bisher verliehen?" : "3"
 };
 
 
@@ -47,7 +51,13 @@ function makeAction() {
     if (mainDiv.getElementsByClassName('questions')!=null){
         answerQuestion();
         nextQuestion();
+    } else if(mainDiv.getElementsByClassName('cross')!=null){
+        mainDiv.getElementsByClassName('btn')[0];
+        slot();
+    } else if(mainDiv.getElementsByClassName('lose')!=null){
+        mainDiv.getElementsByClassName('btn')[1];
     }
+    setTimeout(makeAction, 300)
 }
 
 function answerQuestion() {
@@ -63,7 +73,12 @@ function nextQuestion() {
     setTimeout(makeAction, 500)
 }
 
+function slot(){
+    mainDiv.getElementByClass('circle')[7].click();
+}
+
 (function() {
     'use strict';
     makeAction();
 })();
+
