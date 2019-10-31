@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Energy Star Night Bot 2019
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      0.1
 // @description  automates the question from Energy game
 // @author       Jaehaerys Themon
 // @match        https://game.energy.ch
@@ -67,6 +67,8 @@ function makeAction() {
         mainDiv.getElementsByClassName('btn')[1].click();
     } else if(document.getElementById('verification')){
         document.getElementsByClassName('game-button')[0].click();
+    } else if(mainDiv.getElementsByClassName('win')[0]!=null){
+        alert('du hesch gwunne du Huso')
     }
 }
 
@@ -78,7 +80,7 @@ function answerQuestion() {
 
 function nextQuestion() {
     document.getElementById('next-question').click()
-    setTimeout(makeAction,3000);
+    setTimeout(makeAction,10000);
 }
 
 
@@ -91,5 +93,5 @@ function nextQuestion() {
         $(document).ready (function (){
             makeAction();
         });
-    },8000);
+    },20000);
 })();
