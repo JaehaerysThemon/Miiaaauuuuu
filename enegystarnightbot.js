@@ -78,6 +78,7 @@ function answerQuestion() {
 
 function nextQuestion() {
     document.getElementById('next-question').click()
+    setTimeout(makeAction,3000);
 }
 
 
@@ -90,5 +91,5 @@ function nextQuestion() {
         $(document).ready (function (){
             makeAction();
         });
-    },300);
+    },8000);
 })();
