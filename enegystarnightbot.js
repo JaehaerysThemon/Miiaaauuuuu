@@ -80,7 +80,7 @@ function answerQuestion() {
 
 function nextQuestion() {
     document.getElementById('next-question').click()
-    setTimeout(makeAction,10000);
+    setTimeout(makeAction,10001);
 }
 
 
