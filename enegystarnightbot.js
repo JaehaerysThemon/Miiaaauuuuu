@@ -1,13 +1,12 @@
 // ==UserScript==
 // @name         Energy Star Night Bot 2019
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      1.0
 // @description  automates the question from Energy game
 // @author       Jaehaerys Themon
 // @match        https://game.energy.ch
 // @grant        none
 // ==/UserScript==
-
 const mainDiv = document.getElementsByClassName('main')[0];
 const questions = {
     "In welcher Eventlocation findet die Energy Star Night statt?" : "Hallenstadion, Zürich",
@@ -49,27 +48,36 @@ const questions = {
     "Was kann man bei LIPO kaufen?":"Möbel",
     "Welcher Schweizer Act räumte den Energy Music Award 2018 ab?":"Nemo",
 };
-
+function rnd(){
+    let min = 700;
+    let max = 3500;
+    let rnd = Math.floor(Math.random() * (max - min + 1) + min);
+    console.log(rnd)
+    return rnd;
+}
 
 function makeAction() {
-    if (mainDiv.getElementsByClassName('questions')[0]!=null){
-        answerQuestion();
-        nextQuestion();
-    } else if(mainDiv.getElementsByClassName('cross')[0]!=null){
-        mainDiv.getElementsByClassName('game-button-slot')[0].click();
-    } else if(mainDiv.getElementsByClassName('slot')[0]!=null){
-        if(document.getElementsByTagName('h1')[1].innerText=='Leider verloren'){
-            mainDiv.getElementsByClassName('btn')[1].click();
-        } else {
-            mainDiv.getElementsByClassName('circle')[10].firstChild.click();
+    if (document.readyState === 'complete') {
+        if (mainDiv.getElementsByClassName('questions')[0]!=null){
+            answerQuestion();
+            nextQuestion();
+        } else if(mainDiv.getElementsByClassName('cross')[0]!=null){
+            mainDiv.getElementsByClassName('game-button-slot')[0].click();
+        } else if(mainDiv.getElementsByClassName('slot')[0]!=null){
+            if(document.getElementsByTagName('h1')[1].innerText=='Leider verloren'){
+                mainDiv.getElementsByClassName('btn')[0].click();
+            } else {
+                mainDiv.getElementsByClassName('circle')[10].firstChild.click();
+            }
+        } else if(mainDiv.getElementsByClassName('lose')[0]!=null){
+            mainDiv.getElementsByClassName('btn')[0].click();
+        } else if(document.getElementById('verification')){
+            document.getElementsByClassName('game-button')[0].click();
+        } else if(mainDiv.getElementsByClassName('win')[0]!=null){
+            alert('du hesch gwunne du Huso')
         }
-    } else if(mainDiv.getElementsByClassName('lose')[0]!=null){
-        mainDiv.getElementsByClassName('btn')[1].click();
-    } else if(document.getElementById('verification')){
-        document.getElementsByClassName('game-button')[0].click();
-    } else if(mainDiv.getElementsByClassName('win')[0]!=null){
-        alert('du hesch gwunne du Huso')
     }
+    setTimeout(makeAction,rnd());
 }
 
 function answerQuestion() {
@@ -79,8 +87,8 @@ function answerQuestion() {
 }
 
 function nextQuestion() {
-    document.getElementById('next-question').click()
-    setTimeout(makeAction,10001);
+    document.getElementById('next-question').click();
+
 }
 
 
@@ -89,9 +97,5 @@ function nextQuestion() {
     script.src = 'https://code.jquery.com/jquery-3.4.1.min.js';
     script.type = 'text/javascript';
     document.getElementsByTagName('head')[0].appendChild(script);
-    setInterval(()=>{
-        $(document).ready (function (){
-            makeAction();
-        });
-    },20000);
+    makeAction();
 })();
